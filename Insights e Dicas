@@ -1,0 +1,9 @@
+## Insights e Dicas
+
+- IaC é poderoso: Automatiza criação, atualização e remoção de recursos de forma segura.
+
+- Versionamento de templates: Manter templates no GitHub facilita colaboração e rastreabilidade.
+
+- Validação antes do deploy: Evita erros e provisionamento desnecessário de recursos.
+
+- Outputs ajudam muito: Permitem usar informações de recursos em outras Stacks ou scripts.
