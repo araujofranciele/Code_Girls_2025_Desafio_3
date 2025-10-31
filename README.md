@@ -1,74 +1,89 @@
-# AWS CloudFormation – Laboratório de Primeira Stack
+# Laboratório AWS CloudFormation – Minha Primeira Stack
 
 ## 📌 Objetivo
 
-O objetivo deste laboratório é **implementar a primeira Stack utilizando AWS CloudFormation**, entendendo os conceitos fundamentais de **infraestrutura como código (IaC)** e praticando a criação de recursos na AWS de forma automatizada.
+O objetivo deste laboratório é **implementar uma Stack utilizando AWS CloudFormation**, praticando **Infraestrutura como Código (IaC)** e entendendo como automatizar a criação de recursos na AWS.
+
+Nesta Stack, criamos:
+
+* Uma instância **EC2** com Amazon Linux 2
+* Um **Security Group** para permitir acesso SSH (porta 22) e HTTP (porta 80)
+* Um **Apache Web Server** instalado automaticamente via **User Data**
+* Uma **página HTML simples** como teste
+* **Outputs** com informações úteis (IP público e ID do Security Group)
 
 ---
 
 ## 📚 Conceitos Aprendidos
 
-Durante a prática, foram explorados os seguintes conceitos:
-
-* **Stack:** Conjunto de recursos AWS que podem ser criados, atualizados e deletados de forma unificada.
-* **Template:** Arquivo em **YAML** ou **JSON** que define a infraestrutura desejada.
-* **Recursos (Resources):** Componentes da AWS que serão provisionados, como **EC2, S3, IAM roles** etc.
-* **Parâmetros (Parameters):** Valores dinâmicos que podem ser passados para o template.
-* **Outputs:** Informações úteis sobre os recursos criados, exibidas ao final da criação da Stack.
-* **Dependências:** Ordem de criação de recursos, controlada automaticamente pelo CloudFormation.
+* **Stack:** Conjunto de recursos AWS que podem ser criados, atualizados e deletados juntos.
+* **Template:** Arquivo YAML que descreve a infraestrutura desejada.
+* **Resources:** Recursos provisionados na AWS (EC2, Security Group, etc.).
+* **Parameters:** Permitem definir valores dinâmicos, como tipo de instância e chave SSH.
+* **User Data:** Script executado na inicialização da instância para configuração automática.
+* **Outputs:** Informações úteis que podem ser utilizadas em outras Stacks ou scripts.
 
 ---
 
-## 🛠️ Ferramentas e Serviços Utilizados
+## 🛠️ Serviços e Ferramentas Utilizados
 
-* **AWS CloudFormation:** Serviço principal para criar e gerenciar a Stack.
-* **Amazon EC2:** Criar instâncias de máquinas virtuais.
-* **Amazon S3:** Armazenamento de arquivos e logs (opcional, dependendo da Stack).
-* **AWS CLI:** Para validação e deploy da Stack via terminal (opcional).
+* **AWS CloudFormation** – Criação e gerenciamento da Stack
+* **Amazon EC2** – Máquina virtual para teste
+* **Security Group** – Controle de acesso à instância
+* **AWS CLI** – Para validar e executar a Stack (opcional)
 
 ---
 
-## 📝 Passo a Passo da Implementação
+## 📝 Passo a Passo
 
 1. **Criação do template YAML**
-
-   * Definição do `AWSTemplateFormatVersion` e `Description`.
-   * Configuração de **Parameters** para flexibilidade do template.
-   * Declaração de **Resources** (por exemplo, uma instância EC2 e um Security Group).
-   * Configuração de **Outputs** para exibir informações como IP público da instância.
+   Salvar o arquivo como `cloudformation-ec2.yaml` (template fornecido no repositório).
 
 2. **Validação do Template**
 
    ```bash
-   aws cloudformation validate-template --template-body file://meu-template.yaml
+   aws cloudformation validate-template --template-body file://cloudformation-ec2.yaml
    ```
 
 3. **Criação da Stack**
 
    ```bash
-   aws cloudformation create-stack --stack-name MinhaPrimeiraStack --template-body file://meu-template.yaml --parameters ParameterKey=InstanceType,ParameterValue=t2.micro
+   aws cloudformation create-stack \
+   --stack-name MinhaPrimeiraStack \
+   --template-body file://cloudformation-ec2.yaml \
+   --parameters ParameterKey=KeyName,ParameterValue=minha-chave-ec2
    ```
 
 4. **Monitoramento da Stack**
 
-   * Acompanhar status de criação pelo console ou CLI.
-   * Identificar possíveis erros e ajustar o template conforme necessário.
+   * Acompanhar status pelo console ou via CLI:
 
-5. **Visualização de Outputs**
+   ```bash
+   aws cloudformation describe-stacks --stack-name MinhaPrimeiraStack
+   ```
 
-   * Conferir informações dos recursos criados, como IP da EC2.
+5. **Acessando a Instância**
+
+   * Após a criação, utilize o **IP público** (Output `EC2PublicIP`) para acessar a página web criada.
+   * Para SSH:
+
+   ```bash
+   ssh -i minha-chave-ec2.pem ec2-user@<EC2PublicIP>
+   ```
 
 6. **Atualização da Stack**
 
-   * Modificar template e executar:
+   * Modificar template e atualizar Stack:
 
    ```bash
-   aws cloudformation update-stack --stack-name MinhaPrimeiraStack --template-body file://meu-template.yaml
+   aws cloudformation update-stack \
+   --stack-name MinhaPrimeiraStack \
+   --template-body file://cloudformation-ec2.yaml
    ```
 
 7. **Exclusão da Stack**
 
-   * Garantir limpeza de recursos:
+   * Para limpar recursos:
 
    ```bash
    aws cloudformation delete-stack --stack-name MinhaPrimeiraStack
@@ -78,10 +93,11 @@ Durante a prática, foram explorados os seguintes conceitos:
 
 ## 💡 Insights e Dicas
 
-* **IaC é poderoso:** Automatiza criação, atualização e remoção de recursos de forma segura.
-* **Versionamento de templates:** Manter templates no GitHub facilita colaboração e rastreabilidade.
-* **Validação antes do deploy:** Evita erros e provisionamento desnecessário de recursos.
-* **Outputs ajudam muito:** Permitem usar informações de recursos em outras Stacks ou scripts.
+* **IaC automatiza tudo:** Criação, atualização e exclusão de recursos sem tocar no console.
+* **Validação é essencial:** Evita erros e provisionamento de recursos desnecessários.
+* **User Data é poderoso:** Permite configurar a instância automaticamente.
+* **Outputs ajudam na integração:** Facilita referência de IPs, IDs e outros recursos.
+* **Tags organizam recursos:** Úteis para controle e cobrança.
 
 ---
 
@@ -90,14 +106,7 @@ Durante a prática, foram explorados os seguintes conceitos:
 ```
 aws-cloudformation-lab/
 │
-├── meu-template.yaml         # Template da Stack em YAML
+├── cloudformation-ec2.yaml   # Template CloudFormation
 ├── README.md                 # Este arquivo
-└── notas-de-estudo.md        # Anotações e aprendizados adicionais
+└── notas-de-estudo.md        # Anotações e insights do laboratório
 ```
-
----
-
-Se você quiser, posso **criar já um template YAML de exemplo de CloudFormation** para você colocar no repositório e testar sua primeira Stack na AWS.
-
-Quer que eu faça isso?
-
