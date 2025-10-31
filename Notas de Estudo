@@ -1,0 +1,70 @@
+# Notas de Estudo – AWS CloudFormation
+
+## 📌 Conceitos Importantes
+
+* **Stack:** Conjunto de recursos AWS que podem ser gerenciados como uma única unidade.
+* **Template:** Arquivo YAML ou JSON que define a infraestrutura como código.
+* **Resources:** Elementos que serão provisionados (EC2, Security Group, S3, etc.).
+* **Parameters:** Permitem tornar o template dinâmico (ex.: tipo de instância, nome de chave SSH).
+* **User Data:** Script executado na inicialização da instância para configurar serviços automaticamente.
+* **Outputs:** Informações finais sobre recursos criados, como IPs, IDs e nomes.
+
+---
+
+## 🛠️ Serviços e Recursos Utilizados
+
+* **CloudFormation:** Criação, atualização e exclusão de recursos de forma automatizada.
+* **EC2:** Instância de máquina virtual para teste.
+* **Security Group:** Controle de acesso, definindo portas abertas (SSH, HTTP).
+* **Amazon Linux 2:** Sistema operacional da instância EC2.
+* **Apache Web Server:** Instalado via User Data para criar página HTML de teste.
+
+---
+
+## 💡 Insights e Dicas Práticas
+
+1. **Validação do template antes do deploy**
+
+   * Evita erros e gasto desnecessário de recursos:
+
+   ```bash
+   aws cloudformation validate-template --template-body file://cloudformation-ec2.yaml
+   ```
+
+2. **User Data facilita automação**
+
+   * Permite instalar softwares, criar arquivos e configurar serviços ao iniciar a instância.
+
+3. **Parâmetros tornam o template reutilizável**
+
+   * Ex.: mudar tipo de instância ou chave SSH sem alterar o código YAML.
+
+4. **Outputs são essenciais para integração**
+
+   * Úteis para scripts, outras Stacks ou acessar serviços provisionados.
+
+5. **Monitoramento da Stack**
+
+   * Sempre acompanhar status da criação ou atualização pelo console ou CLI:
+
+   ```bash
+   aws cloudformation describe-stacks --stack-name MinhaPrimeiraStack
+   ```
+
+6. **Boas práticas de segurança**
+
+   * Limitar IPs no Security Group em ambientes de produção.
+   * Nunca deixar chave SSH pública ou sem proteção.
+
+7. **Tags ajudam na organização**
+
+   * Facilita rastreabilidade, cobrança e identificação de recursos.
+
+---
+
+## ⚡ Próximos Passos para Estudo
+
+* Criar **Stacks mais complexas** com múltiplas EC2, Load Balancer e RDS.
+* Explorar **nested stacks** (Stacks dentro de Stacks).
+* Integrar com **CloudWatch e SNS** para alertas automáticos.
+* Testar atualizações de Stack e entender comportamento de **rollback**.
