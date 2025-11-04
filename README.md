@@ -1,8 +1,8 @@
 # Laboratório AWS CloudFormation – Minha Primeira Stack
 
-## 📌 Objetivo
+## Objetivo
 
-O objetivo deste laboratório é **implementar uma Stack utilizando AWS CloudFormation**, praticando **Infraestrutura como Código (IaC)** e entendendo como automatizar a criação de recursos na AWS.
+O objetivo deste laboratório é implementar uma Stack utilizando AWS CloudFormation, praticando Infraestrutura como Código (IaC) e entendendo como automatizar a criação de recursos na AWS.
 
 Nesta Stack, criamos:
 
@@ -14,7 +14,7 @@ Nesta Stack, criamos:
 
 ---
 
-## 📚 Conceitos Aprendidos
+## Conceitos Aprendidos
 
 * **Stack:** Conjunto de recursos AWS que podem ser criados, atualizados e deletados juntos.
 * **Template:** Arquivo YAML que descreve a infraestrutura desejada.
@@ -25,7 +25,7 @@ Nesta Stack, criamos:
 
 ---
 
-## 🛠️ Serviços e Ferramentas Utilizados
+## Serviços e Ferramentas Utilizados
 
 * **AWS CloudFormation** – Criação e gerenciamento da Stack
 * **Amazon EC2** – Máquina virtual para teste
@@ -34,7 +34,7 @@ Nesta Stack, criamos:
 
 ---
 
-## 📝 Passo a Passo
+## Passo a Passo
 
 1. **Criação do template YAML**
    Salvar o arquivo como `cloudformation-ec2.yaml` (template fornecido no repositório).
@@ -91,7 +91,7 @@ Nesta Stack, criamos:
 
 ---
 
-## 💡 Insights e Dicas
+## Insights e Dicas
 
 * **IaC automatiza tudo:** Criação, atualização e exclusão de recursos sem tocar no console.
 * **Validação é essencial:** Evita erros e provisionamento de recursos desnecessários.
@@ -101,7 +101,7 @@ Nesta Stack, criamos:
 
 ---
 
-## 📂 Estrutura do Repositório
+## Estrutura do Repositório
 
 ```
 aws-cloudformation-lab/
@@ -110,3 +110,4 @@ aws-cloudformation-lab/
 ├── README.md                 # Este arquivo
 └── notas-de-estudo.md        # Anotações e insights do laboratório
 ```
+**Projeto desenvolvido por Franciele Araújo como parte de um laboratório prático sobre AWS CloudFormation.*
