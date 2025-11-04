@@ -1,6 +1,6 @@
 # Notas de Estudo – AWS CloudFormation
 
-## 📌 Conceitos Importantes
+## Conceitos Importantes
 
 * **Stack:** Conjunto de recursos AWS que podem ser gerenciados como uma única unidade.
 * **Template:** Arquivo YAML ou JSON que define a infraestrutura como código.
@@ -11,7 +11,7 @@
 
 ---
 
-## 🛠️ Serviços e Recursos Utilizados
+## Serviços e Recursos Utilizados
 
 * **CloudFormation:** Criação, atualização e exclusão de recursos de forma automatizada.
 * **EC2:** Instância de máquina virtual para teste.
@@ -21,7 +21,7 @@
 
 ---
 
-## 💡 Insights e Dicas Práticas
+## Insights e Dicas Práticas
 
 1. **Validação do template antes do deploy**
 
@@ -62,9 +62,9 @@
 
 ---
 
-## ⚡ Próximos Passos para Estudo
+## Próximos Passos para Estudo
 
 * Criar **Stacks mais complexas** com múltiplas EC2, Load Balancer e RDS.
 * Explorar **nested stacks** (Stacks dentro de Stacks).
 * Integrar com **CloudWatch e SNS** para alertas automáticos.
-* Testar atualizações de Stack e entender comportamento de **rollback**.
+* Testar atualizações de Stack e entender comportamento de rollback.
